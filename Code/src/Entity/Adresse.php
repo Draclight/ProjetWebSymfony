@@ -133,6 +133,6 @@ class Adresse
     }
 
     public function __toString() {
-        return $this->getRue();
+        return $this->getNumero().'-'.$this->getRue().'-'.$this->getCodePostal().'-'.$this->getVille();
         }
 }
