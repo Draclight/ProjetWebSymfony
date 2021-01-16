@@ -40,10 +40,7 @@ class Liste
         return $this->id;
     }
 
-    /**
-     * @return Collection|Personne[]
-     */
-    public function getPersonne(): Collection
+    public function getPersonne(): Personne
     {
         return $this->personne;
     }
@@ -93,9 +90,8 @@ class Liste
 
         return $this;
     }
-
         
     public function __toString() {
         return $this->getPersonne().'-'.$this->getCadeau();
-        }
+    }
 }

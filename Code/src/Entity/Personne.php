@@ -111,5 +111,5 @@ class Personne
 
     public function __toString() {
         return $this->getNomPrenom();
-        }
+    }
 }
