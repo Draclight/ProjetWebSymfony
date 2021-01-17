@@ -38,6 +38,11 @@ class Personne
      */
     private $adresse;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Liste::class, mappedBy="personne", cascade={"persist", "remove"})
+     */
+    private $liste;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,4 +95,25 @@ class Personne
 
         return $this;
     }
+
+    public function getListe(): ?Liste
+    {
+        return $this->liste;
+    }
+
+    public function setListe(Liste $liste): self
+    {
+        // set the owning side of the relation if necessary
+        if ($liste->getPersonne() !== $this) {
+            $liste->setPersonne($this);
+        }
+
+        $this->liste = $liste;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->getNomPrenom();
+        }
 }
