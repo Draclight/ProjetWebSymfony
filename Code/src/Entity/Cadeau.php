@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\CadeauRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,16 +37,6 @@ class Cadeau
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Liste::class, mappedBy="cadeau")
-     */
-    private $listes;
-
-    public function __construct()
-    {
-        $this->listes = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -102,34 +90,4 @@ class Cadeau
 
         return $this;
     }
-
-    /**
-     * @return Collection|Liste[]
-     */
-    public function getListes(): Collection
-    {
-        return $this->listes;
-    }
-
-    public function addListe(Liste $liste): self
-    {
-        if (!$this->listes->contains($liste)) {
-            $this->listes[] = $liste;
-            $liste->addCadeau($this);
-        }
-
-        return $this;
-    }
-
-    public function removeListe(Liste $liste): self
-    {
-        if ($this->listes->removeElement($liste)) {
-            $liste->removeCadeau($this);
-        }
-
-        return $this;
-    }
-    public function __toString() {
-        return $this->getDesignation();
-        }
 }

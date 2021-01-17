@@ -20,14 +20,14 @@ class Adresse
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $rue;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $numero;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $rue;
 
     /**
      * @ORM\Column(type="integer")
@@ -54,18 +54,6 @@ class Adresse
         return $this->id;
     }
 
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
-
-    public function setRue(string $rue): self
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
-
     public function getNumero(): ?int
     {
         return $this->numero;
@@ -74,6 +62,18 @@ class Adresse
     public function setNumero(int $numero): self
     {
         $this->numero = $numero;
+
+        return $this;
+    }
+
+    public function getRue(): ?string
+    {
+        return $this->rue;
+    }
+
+    public function setRue(string $rue): self
+    {
+        $this->rue = $rue;
 
         return $this;
     }
@@ -131,8 +131,4 @@ class Adresse
 
         return $this;
     }
-
-    public function __toString() {
-        return $this->getNumero().'-'.$this->getRue().'-'.$this->getCodePostal().'-'.$this->getVille();
-        }
 }
