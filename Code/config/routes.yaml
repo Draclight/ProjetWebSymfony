@@ -5,4 +5,4 @@
 
 accueil:
     path: /accueil
-    controller: App\Controller\PageAccueil::accueil
+    controller: App\Controller\GeneralController::accueil
