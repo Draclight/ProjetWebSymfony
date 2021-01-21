@@ -2,6 +2,7 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-page_accueil:
+
+accueil:
     path: /accueil
-    controller: App\Controller\ProjetController::accueil
+    controller: App\Controller\GeneralController::accueil
