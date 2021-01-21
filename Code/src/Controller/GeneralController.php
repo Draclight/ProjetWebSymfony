@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GeneralController extends AbstractController
 {
     /**
-     * @Route("/general", name="general")
+     * @Route("/", name="accueil")
      */
     public function accueil(): Response
     {
