@@ -63,7 +63,7 @@ class CadeauController extends AbstractController
      */
     public function edit(Request $request, Cadeau $cadeau): Response
     {
-        $form = $this->createForm(CadeauType::class, $cadeau);
+        $form = $this->createForm(CadeauType::class, $cadeau, array('designation_disabled'=>true));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
