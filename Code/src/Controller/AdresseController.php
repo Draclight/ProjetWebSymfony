@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Adresse;
+use App\Entity\Personne;
 use App\Form\AdresseType;
 use App\Repository\AdresseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -83,12 +84,16 @@ class AdresseController extends AbstractController
      */
     public function delete(Request $request, Adresse $adresse): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$adresse->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($adresse);
-            $entityManager->flush();
-        }
+        $repo = $this->getDoctrine()->getManager()->getRepository(Personne::class);
+        $personnes = $repo->findByAdresse($adresse);
 
+        if(count($personnes) == 0) {
+            if ($this->isCsrfTokenValid('delete'.$adresse->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($adresse);
+                $entityManager->flush();
+            }
+        }
         return $this->redirectToRoute('adresse_index');
     }
 }
