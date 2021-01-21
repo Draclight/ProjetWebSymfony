@@ -6,6 +6,7 @@ use App\Entity\Personne;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class PersonneType extends AbstractType
 {
@@ -14,7 +15,9 @@ class PersonneType extends AbstractType
         $builder
             ->add('nom_prenom')
             ->add('sexe')
-            ->add('date_naissance')
+            ->add('date_naissance', DateType::class, [
+                'years' => range(1990, 2020),
+            ])
             ->add('adresse')
             ->add('liste')
         ;
