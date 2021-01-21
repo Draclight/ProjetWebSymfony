@@ -20,7 +20,8 @@ class Liste
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Personne::class, mappedBy="liste")
+     * @ORM\OneToOne(targetEntity=Personne::class, inversedBy="liste", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $personne;
 
@@ -31,7 +32,6 @@ class Liste
 
     public function __construct()
     {
-        $this->personne = new ArrayCollection();
         $this->cadeau = new ArrayCollection();
     }
 
@@ -40,29 +40,14 @@ class Liste
         return $this->id;
     }
 
-    public function getPersonne(): Personne
+    public function getPersonne(): ?Personne
     {
         return $this->personne;
     }
 
-    public function addPersonne(Personne $personne): self
+    public function setPersonne(Personne $personne): self
     {
-        if (!$this->personne->contains($personne)) {
-            $this->personne[] = $personne;
-            $personne->setListe($this);
-        }
-
-        return $this;
-    }
-
-    public function removePersonne(Personne $personne): self
-    {
-        if ($this->personne->removeElement($personne)) {
-            // set the owning side to null (unless already changed)
-            if ($personne->getListe() === $this) {
-                $personne->setListe(null);
-            }
-        }
+        $this->personne = $personne;
 
         return $this;
     }
@@ -91,7 +76,8 @@ class Liste
         return $this;
     }
         
-    public function __toString() {
-        return $this->getPersonne().'-'.$this->getCadeau();
+    public function __toString()
+    {
+        return (string) $this->getPersonne();
     }
 }

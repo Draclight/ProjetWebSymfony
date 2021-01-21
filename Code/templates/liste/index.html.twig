@@ -16,7 +16,7 @@
         {% for liste in listes %}
             <tr>
                 <td>{{ liste.id }}</td>
-                <td>
+                <td>{{ liste.personne }}</td>
                     <a href="{{ path('liste_show', {'id': liste.id}) }}">show</a>
                     <a href="{{ path('liste_edit', {'id': liste.id}) }}">edit</a>
                 </td>
