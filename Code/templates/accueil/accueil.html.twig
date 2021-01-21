@@ -4,12 +4,15 @@
 
 {% block body %}
   
-    <h1>! BIENVENUE !</h1>
-    <p>lien vers <a href="{{ path('adresse_index') }}"> adresses</a></p>
-    <p>lien vers <a href="{{ path('personne_index') }}"> personnes </a></p>
-    <p>lien vers <a href="{{ path('categorie_index') }}"> categories</a></p>
-    <p>lien vers <a href="{{ path('cadeau_index') }}"> cadeaux </a></p>
-    <p>lien vers <a href="{{ path('liste_index') }}"> liste </a></p>
+    <h1>LIENS VERS INDEX : </h1>
+        <p>Lien vers <a href="{{ path('adresse_index') }}"> adresses</a></p>
+        <p>Lien vers <a href="{{ path('personne_index') }}"> personnes </a></p>
+        <p>Lien vers <a href="{{ path('categorie_index') }}"> categories</a></p>
+        <p>Lien vers <a href="{{ path('cadeau_index') }}"> cadeaux </a></p>
+        <p>Lien vers <a href="{{ path('liste_index') }}"> liste </a></p>
+    <h1>RACCOURCIS VERS QUESTIONS : </h1>
+       <p> 1) <a href="{{ path('adresse_index') }}"> Lister toutes les adresses </a></p>
+       <p> 2)  Afficher une adresse </a></p>
 
-    <a href="{{ path('adresse_new') }}">Create new</a>
+
 {% endblock %}
