@@ -23,14 +23,14 @@ class Personne
     private $nom_prenom;
 
     /**
+     * @ORM\Column(type="string", length=1)
+     */
+    private $sexe;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $date_naissance;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $sexe;
 
     /**
      * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="personnes")
@@ -39,8 +39,7 @@ class Personne
     private $adresse;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Liste::class, inversedBy="personne")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=Liste::class, mappedBy="personne", cascade={"persist", "remove"})
      */
     private $liste;
 
@@ -61,18 +60,6 @@ class Personne
         return $this;
     }
 
-    public function getDateNaissance(): ?\DateTimeInterface
-    {
-        return $this->date_naissance;
-    }
-
-    public function setDateNaissance(\DateTimeInterface $date_naissance): self
-    {
-        $this->date_naissance = $date_naissance;
-
-        return $this;
-    }
-
     public function getSexe(): ?string
     {
         return $this->sexe;
@@ -81,6 +68,18 @@ class Personne
     public function setSexe(string $sexe): self
     {
         $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->date_naissance;
+    }
+
+    public function setDateNaissance(\DateTimeInterface $date_naissance): self
+    {
+        $this->date_naissance = $date_naissance;
 
         return $this;
     }
@@ -102,8 +101,13 @@ class Personne
         return $this->liste;
     }
 
-    public function setListe(?Liste $liste): self
+    public function setListe(Liste $liste): self
     {
+        // set the owning side of the relation if necessary
+        if ($liste->getPersonne() !== $this) {
+            $liste->setPersonne($this);
+        }
+
         $this->liste = $liste;
 
         return $this;

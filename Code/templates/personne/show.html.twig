@@ -16,12 +16,12 @@
                 <td>{{ personne.nomPrenom }}</td>
             </tr>
             <tr>
-                <th>Date_naissance</th>
-                <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Sexe</th>
                 <td>{{ personne.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Date_naissance</th>
+                <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>

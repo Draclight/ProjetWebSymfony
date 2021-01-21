@@ -10,8 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Nom_prenom</th>
-                <th>Date_naissance</th>
                 <th>Sexe</th>
+                <th>Date_naissance</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,8 +20,8 @@
             <tr>
                 <td>{{ personne.id }}</td>
                 <td>{{ personne.nomPrenom }}</td>
-                <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d') : '' }}</td>
                 <td>{{ personne.sexe }}</td>
+                <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('personne_show', {'id': personne.id}) }}">show</a>
                     <a href="{{ path('personne_edit', {'id': personne.id}) }}">edit</a>

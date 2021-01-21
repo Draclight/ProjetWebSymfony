@@ -13,8 +13,8 @@ class PersonneType extends AbstractType
     {
         $builder
             ->add('nom_prenom')
-            ->add('date_naissance')
             ->add('sexe')
+            ->add('date_naissance')
             ->add('adresse')
             ->add('liste')
         ;
