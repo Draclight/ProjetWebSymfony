@@ -13,7 +13,7 @@ class CadeauType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('designation')
+            ->add('designation', TextType::class, ['disabled'=>$options['designation_disabled']])
             ->add('age_minimum')
             ->add('prix')
             ->add('categorie')
@@ -25,6 +25,7 @@ class CadeauType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Cadeau::class,
+            'designation_disabled'=>false
         ]);
     }
 }

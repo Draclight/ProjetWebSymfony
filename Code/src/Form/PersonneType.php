@@ -14,9 +14,11 @@ class PersonneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom_prenom')
+            ->add('nom_prenom', TextType::class, ['disabled'=>$options['nom_prenom_disabled']])
             ->add('sexe')
-            ->add('date_naissance', DateType::class, ['years' => range(1950, 2021),])
+            ->add('date_naissance', DateType::class, [
+                'years' => range(1990, 2020),
+            ])
             ->add('adresse')
             ->add('liste')
         ;
@@ -26,6 +28,7 @@ class PersonneType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Personne::class,
+            'nom_prenom_disabled'=>false
         ]);
     }
 }
