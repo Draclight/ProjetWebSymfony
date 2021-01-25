@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cadeau;
+use App\Entity\Liste;
 use App\Form\CadeauType;
 use App\Repository\CadeauRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -83,12 +84,26 @@ class CadeauController extends AbstractController
      */
     public function delete(Request $request, Cadeau $cadeau): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cadeau->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($cadeau);
-            $entityManager->flush();
+        $canDelete = true;
+        $repo = $this->getDoctrine()->getManager()->getRepository(Liste::class);
+        $listes = $repo->findAll();
+        
+        foreach ($listes as &$liste) {
+            $cadeaux = $liste->getCadeau();
+            foreach ($cadeaux as &$c) {
+                if($c == $cadeau){
+                    $canDelete = false;
+                }
+            }
         }
-
+        
+        if($canDelete) {
+            if ($this->isCsrfTokenValid('delete'.$cadeau->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($cadeau);
+                $entityManager->flush();
+            }
+        }
         return $this->redirectToRoute('cadeau_index');
     }
 }
