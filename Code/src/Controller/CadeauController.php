@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cadeau;
+use App\Entity\Categorie;
 use App\Form\CadeauType;
 use App\Repository\CadeauRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -78,6 +79,8 @@ class CadeauController extends AbstractController
         ]);
     }
 
+
+    
     /**
      * @Route("/{id}", name="cadeau_delete", methods={"DELETE"})
      */
@@ -90,5 +93,13 @@ class CadeauController extends AbstractController
         }
 
         return $this->redirectToRoute('cadeau_index');
+    }
+
+        
+    public function findByCategorie($categorie) {
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder->where('c.categorie = :categorie')
+            ->setParameter('categorie', $categorie);
+        return $queryBuilder->getQuery()->getResult();
     }
 }

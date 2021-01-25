@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Entity\Cadeau;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -83,10 +84,18 @@ class CategorieController extends AbstractController
      */
     public function delete(Request $request, Categorie $categorie): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($categorie);
-            $entityManager->flush();
+
+
+        //On récupère les entités cadeaux
+        $repo = $this->getDoctrine()->getManager()->getRepository(Cadeau::class);
+        $cadeaux = $repo->findByCategorie($categorie);
+
+        if(count($cadeaux) == 0) {
+            if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($categorie);
+                $entityManager->flush();
+            }
         }
 
         return $this->redirectToRoute('categorie_index');

@@ -84,6 +84,7 @@ class AdresseController extends AbstractController
      */
     public function delete(Request $request, Adresse $adresse): Response
     {
+          //On récupère les entités personnes
         $repo = $this->getDoctrine()->getManager()->getRepository(Personne::class);
         $personnes = $repo->findByAdresse($adresse);
 
