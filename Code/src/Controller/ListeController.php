@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Liste;
+use App\Entity\Cadeau;
 use App\Form\ListeType;
 use App\Repository\ListeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

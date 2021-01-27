@@ -4,10 +4,16 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        <p><a href="{{ path('accueil') }}"> RETOUR ACCUEIL </a></p>
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <nav style="border-bottom:solid;">
+            <a href="{{ path('accueil') }}">accueil</a> |
+            <a href="">connexion</a>
+        </nav>
+        {% block body %} {% endblock %}
+        <footer style=" border-top: solid; padding: 5px;">
+            2021 - projet web du père Noël
+        </footer>
     </body>
+    {% block javascripts %}{% endblock %}
 </html>

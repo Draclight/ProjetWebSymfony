@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste index{% endblock %}
+{% block title %}Liste{% endblock %}
 
 {% block body %}
-    <h1>Liste index</h1>
+    <h1>Liste</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Peronnes</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for liste in listes %}
             <tr>
-                <td>{{ liste.id }}</td>
+                <td>{{ liste.personne }}</td>
                 <td>
                     <a href="{{ path('liste_show', {'id': liste.id}) }}">show</a>
                     <a href="{{ path('liste_edit', {'id': liste.id}) }}">edit</a>
