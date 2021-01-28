@@ -8,9 +8,16 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ liste.id }}</td>
+                <th>Liste de : </th>
                 <td>{{ liste.personne }}</td>
+            </tr>
+            <tr>
+                <th>Cadeaux de la liste : </th>
+                {% for cadeaux in liste.cadeau %}
+                <td>| {{ cadeaux.designation }} |</td>
+                {% endfor %} 
+            </tr>
+
             </tr>
         </tbody>
     </table>

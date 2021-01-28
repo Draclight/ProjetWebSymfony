@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Personne</th>
                 <th>actions</th>
             </tr>
@@ -16,7 +15,6 @@
         <tbody>
         {% for liste in listes %}
             <tr>
-                <td>{{ liste.id }}</td>
                 <td>{{ liste.personne }}</td>
                 <td>
                     <a href="{{ path('liste_show', {'id': liste.id}) }}">show</a>

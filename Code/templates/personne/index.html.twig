@@ -8,7 +8,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom_prenom</th>
                 <th>Sexe</th>
                 <th>Date_naissance</th>
@@ -18,7 +17,6 @@
         <tbody>
         {% for personne in personnes %}
             <tr>
-                <td>{{ personne.id }}</td>
                 <td>{{ personne.nomPrenom }}</td>
                 <td>{{ personne.sexe }}</td>
                 <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d') : '' }}</td>
