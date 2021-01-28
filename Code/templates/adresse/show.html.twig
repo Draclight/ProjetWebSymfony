@@ -23,6 +23,17 @@
                 <th>Ville</th>
                 <td>{{ adresse.ville }}</td>
             </tr>
+
+            <tr>
+                <th>Personne(s) vivant à cette adresse : </th>
+                <td>
+                {% for p in personnes %}
+                | {{ p.nomPrenom }}|
+                {% endfor %} 
+                </td>
+            </tr>
+
+
         </tbody>
     </table>
 

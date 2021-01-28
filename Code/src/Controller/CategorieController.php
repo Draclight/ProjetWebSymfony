@@ -84,16 +84,15 @@ class CategorieController extends AbstractController
      */
     public function delete(Request $request, Categorie $categorie): Response
     {
-        $repo = $this->getDoctrine()->getManager()->getRepository(Cadeau::class);
-        $cadeaux = $repo->findByCategorie($categorie);
-
-        if(count($cadeaux) == 0) {
+        if (count($categorie->getCadeaus()) == 0) {
             if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($categorie);
                 $entityManager->flush();
             }
-        }
+            
         return $this->redirectToRoute('categorie_index');
+    }
+    throw new \Exception('Il existe au moins un cadeau ayant cette catégorie');
     }
 }

@@ -73,7 +73,7 @@ class AppFixtures extends Fixture {
         $manager->persist($adresse3);        
 
         $adresse3 = new Adresse();
-        $adresse3->setRue('Rue sans rue');
+        $adresse3->setRue('Rue vide');
         $adresse3->setNumero(0);
         $adresse3->setCodePostal(10000);
         $adresse3->setVille('Nowhere');
@@ -163,7 +163,7 @@ class AppFixtures extends Fixture {
                 
         $cadeau5 = new Cadeau();
         $cadeau5->setCategorie($categorie4);
-        $cadeau5->setDesignation('Mal aimé');
+        $cadeau5->setDesignation('Sans liste');
         $cadeau5->setAgeMinimum(3);
         $cadeau5->setPrix(5);
         $manager->persist($cadeau5);

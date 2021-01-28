@@ -55,6 +55,7 @@ class PersonneController extends AbstractController
     {
         return $this->render('personne/show.html.twig', [
             'personne' => $personne,
+            'adresse' => $personne->getAdresse()
         ]);
     }
 

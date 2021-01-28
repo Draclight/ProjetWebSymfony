@@ -20,7 +20,6 @@ class PersonneType extends AbstractType
                 'years' => range(1990, 2020),
             ])
             ->add('adresse')
-            ->add('liste')
         ;
     }
 

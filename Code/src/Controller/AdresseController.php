@@ -56,6 +56,7 @@ class AdresseController extends AbstractController
     {
         return $this->render('adresse/show.html.twig', [
             'adresse' => $adresse,
+            'personnes' => $adresse->getPersonnes()
         ]);
     }
 
@@ -84,19 +85,16 @@ class AdresseController extends AbstractController
      */
     public function delete(Request $request, Adresse $adresse): Response
     {
-          //On récupère les entités personnes
-        $repo = $this->getDoctrine()->getManager()->getRepository(Personne::class);
-        $personnes = $repo->findByAdresse($adresse);
-
-        if(count($personnes) == 0) {
+        if (count($adresse->getPersonnes()) == 0) {
             if ($this->isCsrfTokenValid('delete'.$adresse->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->remove($adresse);
                 $entityManager->flush();
             }
-        }
+            
         return $this->redirectToRoute('adresse_index');
+        }
+        
+    throw new \Exception('Au moins une personne habite à cette adresse.');
     }
-
-    
 }
