@@ -18,4 +18,11 @@ class GeneralController extends AbstractController
             'controller_name' => 'GeneralController',
         ]);
     }
+
+/**
+* @Route("/menu", name="menu")
+*/
+public function menu() {
+    return $this->render('general/menu.html.twig');
+    }
 }

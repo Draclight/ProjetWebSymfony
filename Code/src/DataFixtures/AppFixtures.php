@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Personne;
@@ -11,10 +13,39 @@ use App\Entity\Adresse;
 use App\Entity\Categorie;
 
 
-class AppFixtures extends Fixture
-{
+class AppFixtures extends Fixture {
+    private $passwordEncoder;
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
+    $this->passwordEncoder = $passwordEncoder;
+    }
+    
     public function load(ObjectManager $manager)
     {
+
+        /******************************************/
+        /****************USER_ROLE******************/
+        /******************************************/
+
+        $user1 = new User();
+        $user1->setUsername('stock');
+        $user1->setRoles(['ROLE_USER']);
+        $encrypted = $this->passwordEncoder->encodePassword($user1,'secret');
+        $user1->setPassword($encrypted);
+        $manager->persist($user1);
+
+        $user2 = new User();
+        $user2->setUsername('perenoel');
+        $user2->setRoles(['ROLE_ADMIN']);
+        $encrypted = $this->passwordEncoder->encodePassword($user2,'secret');
+        $user2->setPassword($encrypted);
+        $manager->persist($user2);
+
+        $user3 = new User();
+        $user3->setUsername('secretariat');
+        $user3->setRoles(['ROLE_SECRETARIAT']);
+        $encrypted = $this->passwordEncoder->encodePassword($user3,'secret');
+        $user3->setPassword($encrypted);
+        $manager->persist($user2);
 
         /******************************************/
         /****************ADRESSES******************/
