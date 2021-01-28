@@ -86,20 +86,18 @@ class CadeauController extends AbstractController
      */
     public function delete(Request $request, Cadeau $cadeau): Response
     {
+        /*$repo = $this->getDoctrine()->getManager()->getRepository(Liste::class);
+        $listes = $repo->findByCategorie($cadeau);
+        if(count($listes) == 0) { */
+            
         if ($this->isCsrfTokenValid('delete'.$cadeau->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($cadeau);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('cadeau_index');
-    }
+    /*}*/
 
-        
-    public function findByCategorie($categorie) {
-        $queryBuilder = $this->createQueryBuilder('c');
-        $queryBuilder->where('c.categorie = :categorie')
-            ->setParameter('categorie', $categorie);
-        return $queryBuilder->getQuery()->getResult();
+        return $this->redirectToRoute('cadeau_index');
     }
 }

@@ -19,6 +19,16 @@ class ListeRepository extends ServiceEntityRepository
         parent::__construct($registry, Liste::class);
     }
 
+    public function findByCadeau($cadeau) {
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder->where('c.cadeau = :cadeau')
+            ->setParameter('cadeau', $cadeau);
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
+
+    
     // /**
     //  * @return Liste[] Returns an array of Liste objects
     //  */

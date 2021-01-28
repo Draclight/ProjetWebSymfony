@@ -82,7 +82,7 @@ class AppFixtures extends Fixture
         $manager->persist($categorie1);
         
         $categorie2 = new categorie();
-        $categorie2->setNom('Sport');
+        $categorie2->setNom('Sans cadeau');
         $manager->persist($categorie2);
         
         $categorie3 = new categorie();
@@ -128,6 +128,15 @@ class AppFixtures extends Fixture
         $cadeau4->setAgeMinimum(6);
         $cadeau4->setPrix(300);
         $manager->persist($cadeau4);
+
+                
+        $cadeau5 = new Cadeau();
+        $cadeau5->setCategorie($categorie4);
+        $cadeau5->setDesignation('Mal aimé');
+        $cadeau5->setAgeMinimum(3);
+        $cadeau5->setPrix(5);
+        $manager->persist($cadeau5);
+
 
         /******************************************/
         /*****************LISTES*******************/

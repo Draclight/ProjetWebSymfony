@@ -18,6 +18,13 @@ class CadeauRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cadeau::class);
     }
+            
+    public function findByCategorie($categorie) {
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder->where('c.categorie = :categorie')
+            ->setParameter('categorie', $categorie);
+        return $queryBuilder->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Cadeau[] Returns an array of Cadeau objects

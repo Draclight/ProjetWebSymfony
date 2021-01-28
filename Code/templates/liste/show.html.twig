@@ -13,9 +13,11 @@
             </tr>
             <tr>
                 <th>Cadeaux de la liste : </th>
+                <td>
                 {% for cadeaux in liste.cadeau %}
-                <td>| {{ cadeaux.designation }} |</td>
+                | {{ cadeaux.designation }}|
                 {% endfor %} 
+                </td>
             </tr>
 
             </tr>

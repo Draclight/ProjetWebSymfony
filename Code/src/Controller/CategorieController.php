@@ -84,9 +84,6 @@ class CategorieController extends AbstractController
      */
     public function delete(Request $request, Categorie $categorie): Response
     {
-
-
-        //On récupère les entités cadeaux
         $repo = $this->getDoctrine()->getManager()->getRepository(Cadeau::class);
         $cadeaux = $repo->findByCategorie($categorie);
 
@@ -97,7 +94,6 @@ class CategorieController extends AbstractController
                 $entityManager->flush();
             }
         }
-
         return $this->redirectToRoute('categorie_index');
     }
 }
