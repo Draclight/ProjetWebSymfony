@@ -45,7 +45,7 @@ class AppFixtures extends Fixture {
         $user3->setRoles(['ROLE_SECRETARIAT']);
         $encrypted = $this->passwordEncoder->encodePassword($user3,'secret');
         $user3->setPassword($encrypted);
-        $manager->persist($user2);
+        $manager->persist($user3);
 
         /******************************************/
         /****************ADRESSES******************/

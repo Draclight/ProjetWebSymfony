@@ -11,6 +11,7 @@
                 <th>Nom_prenom</th>
                 <th>Sexe</th>
                 <th>Date_naissance</th>
+                <th>Adresse</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ personne.nomPrenom }}</td>
                 <td>{{ personne.sexe }}</td>
                 <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ personne.adresse }}</td>
                 <td>
                     <a href="{{ path('personne_show', {'id': personne.id}) }}">show</a>
                     <a href="{{ path('personne_edit', {'id': personne.id}) }}">edit</a>

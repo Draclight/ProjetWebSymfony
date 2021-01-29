@@ -56,7 +56,15 @@ class CategorieController extends AbstractController
     {
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
+            'cadeau' => $categorie->getCadeaus()
         ]);
+         
+        $cpt = 0;
+        $total = 0;
+        foreach($cadeaux as $cadeau){
+                $total += $cadeau->getPrix();
+                $cpt++;
+            }
     }
 
     /**

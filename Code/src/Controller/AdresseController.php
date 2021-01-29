@@ -23,6 +23,7 @@ class AdresseController extends AbstractController
     {
         return $this->render('adresse/index.html.twig', [
             'adresses' => $adresseRepository->findAll(),
+            
         ]);
     }
 
