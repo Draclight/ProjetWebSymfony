@@ -1,52 +1,75 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        inscrit_en_dur:
-            memory:
-                users:
-                    perenoel: { password: 'travail', roles: ['ROLE_ADMIN'] }
-                    gestionnaire: { password: 'gestion', roles: ['ROLE_GESTIONNAIRE'] }
-                    secretaire: { password: 'secret', roles: ['ROLE_SECRETAIRE'] }
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_GESTIONNAIRE
-        ROLE_GESTIONNAIRE: ROLE_SECRETAIRE
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
     encoders:
         Symfony\Component\Security\Core\User\User: 'plaintext'
+        App\Entity\User:
+            algorithm: auto
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt))/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        gestion:
-            pattern: ^/(_(categorie|cadeau|login|logout))/
+        main:
             anonymous: lazy
-            provider: inscrit_en_dur
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+        Adresse:
+            pattern: ^/(adresse|login|logout)
+            anonymous: lazy
+            provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
                 target: accueil
-                # where to redirect after logout
-                # target: app_any_route
-        secretaire:
-            pattern: ^/(_(personne|adresse|login|logout))/
+        Personne:
+            pattern: ^/(personnes|login|logout)
             anonymous: lazy
-            provider: inscrit_en_dur
+            provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
                 target: accueil
-                # where to redirect after logout
-                # target: app_any_route
-        public:
-            pattern: ^/(menu|css|images|js)?
-            security: false
+        Cadeau:
+            pattern: ^/(cadeau|login|logout)
+            anonymous: lazy
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                target: accueil
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
+        Categorie:
+            pattern: ^/(categorie|login|logout)
+            anonymous: lazy
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                target: accueil
+        public:
+            pattern: ^/(menu|css|images|js)?$
+            security: false
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_STOCK, ROLE_SECRETAIRE
     access_control:
-        - { path: ^/liste, roles: ROLE_ADMIN }
-        - { path: ^/categorie, roles: ROLE_GESTIONNAIRE }
-        - { path: ^/personne, roles: ROLE_SECRETAIRE }
+        - { path: ^/cadeau/$, roles: ROLE_STOCK }
+        - { path: ^/categorie/$, roles: ROLE_STOCK }
+        - { path: ^/personne/$, roles: ROLE_SECRETAIRE }
+        - { path: ^/adresse/$, roles: ROLE_SECRETAIRE }

@@ -8,6 +8,9 @@
     <body>
         <nav style="border-bottom:solid;">
             <a href="{{ path('accueil') }}">accueil</a> |
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}">Logout</a>
+            {% endif %}
         </nav>
         {% block body %} {% endblock %}
         <footer style=" border-top: solid; padding: 5px;">
