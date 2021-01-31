@@ -26,6 +26,18 @@ class PersonneRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function findParVilleParRue($ville, $rue)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.adresse', 'a')
+            ->Where('a.ville = :ville')
+            ->andWhere('a.rue = :rue')
+            ->setParameter('ville', $ville)
+            ->setParameter('rue', $rue)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Personne[] Returns an array of Personne objects

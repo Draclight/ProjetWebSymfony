@@ -17,7 +17,7 @@ class PersonneType extends AbstractType
             ->add('nom_prenom', TextType::class, ['disabled'=>$options['nom_prenom_disabled']])
             ->add('sexe')
             ->add('date_naissance', DateType::class, [
-                'years' => range(1990, 2020),
+                'years' => range(1990, 2021),
             ])
             ->add('adresse')
             ->add('liste')

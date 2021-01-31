@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Personne;
+use App\Entity\Adresse;
 use App\Form\PersonneType;
 use App\Repository\PersonneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\RecherchePersonneType;
 
 /**
  * @Route("/personne")
@@ -16,12 +18,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class PersonneController extends AbstractController
 {
     /**
-     * @Route("/", name="personne_index", methods={"GET"})
+     * @Route("/", name="personne_index", methods={"GET","POST"})
      */
-    public function index(PersonneRepository $personneRepository): Response
+    public function index(PersonneRepository $personneRepository, Request $request): Response
     {
+        $adresse = new Adresse();
+        $form = $this->createForm(RecherchePersonneType::class, $adresse); 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ville = $adresse->getVille();
+            $rue = $adresse->getRue();
+            $repo = $this->getDoctrine()->getManager()->getRepository(Personne::class);
+            $personnes = $repo->findParVilleParRue($ville, $rue);
+            dump($personnes);
+
+            return $this->render('personne/index.html.twig', [
+                'personnes' => $personnes,
+                'form' => $form->createView(),
+            ]);
+        }
+
         return $this->render('personne/index.html.twig', [
             'personnes' => $personneRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 

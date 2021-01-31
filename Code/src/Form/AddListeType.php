@@ -8,12 +8,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class ListeType extends AbstractType
+class AddListeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('personne', TextType::class, ['disabled'=>$options['personne_disabled']])
+            ->add('personne')
             ->add('cadeau')
         ;
     }
@@ -22,7 +22,6 @@ class ListeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Liste::class,
-            'personne_disabled'=>false
         ]);
     }
 }

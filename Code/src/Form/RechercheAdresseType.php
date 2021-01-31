@@ -6,6 +6,7 @@ use App\Entity\Adresse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RechercheAdresseType extends AbstractType
 {
@@ -13,6 +14,7 @@ class RechercheAdresseType extends AbstractType
     {
         $builder
             ->add('ville')
+            ->add('submit', SubmitType::class, array('label' => 'rechercher'));
         ;
     }
 

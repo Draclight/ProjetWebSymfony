@@ -17,7 +17,6 @@ class CadeauType extends AbstractType
             ->add('age_minimum')
             ->add('prix')
             ->add('categorie')
-            ->add('listes')
         ;
     }
 

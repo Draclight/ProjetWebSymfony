@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Liste;
 use App\Entity\Cadeau;
 use App\Form\ListeType;
+use App\Form\AddListeType;
 use App\Repository\ListeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class ListeController extends AbstractController
     public function new(Request $request): Response
     {
         $liste = new Liste();
-        $form = $this->createForm(ListeType::class, $liste);
+        $form = $this->createForm(AddListeType::class, $liste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -64,7 +65,7 @@ class ListeController extends AbstractController
      */
     public function edit(Request $request, Liste $liste): Response
     {
-        $form = $this->createForm(ListeType::class, $liste);
+        $form = $this->createForm(ListeType::class, $liste, array('personne_disabled'=>true));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,5 +92,29 @@ class ListeController extends AbstractController
         }
 
         return $this->redirectToRoute('liste_index');
+    }
+
+    /**
+     * @Route("/ajout/{id}", name="liste_edit", methods={"GET","POST"})
+     */
+    public function addCadeau(Request $request, Liste $liste): Response
+    {
+        $form = $this->createForm(ListeType::class, $liste, array('personne_disabled'=>true));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+
+
+            return $this->render('liste/show.html.twig', [
+                'liste' => $liste,
+            ]);
+        }
+
+        return $this->render('liste/edit.html.twig', [
+            'liste' => $liste,
+            'form' => $form->createView(),
+        ]);
     }
 }

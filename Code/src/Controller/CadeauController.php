@@ -22,7 +22,7 @@ class CadeauController extends AbstractController
     public function index(CadeauRepository $cadeauRepository): Response
     {
         return $this->render('cadeau/index.html.twig', [
-            'cadeaus' => $cadeauRepository->findAll(),
+            'cadeaux' => $cadeauRepository->findAll(),
         ]);
     }
 

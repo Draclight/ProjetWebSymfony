@@ -9,7 +9,10 @@
         <nav style="border-bottom:solid;">
             <a href="{{ path('accueil') }}">accueil</a> |
             {% if app.user %}
-                <a href="{{ path('app_logout') }}">Logout</a>
+                <a href="{{ path('app_logout') }}">deconnexion</a>
+                <div class="mb-3">
+                    Vous êtes connecté en tant que : {{ app.user.username }}
+                </div>
             {% endif %}
         </nav>
         {% block body %} {% endblock %}

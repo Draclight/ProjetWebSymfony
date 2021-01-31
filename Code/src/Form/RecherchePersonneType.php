@@ -2,27 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Liste;
+use App\Entity\Adresse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ListeType extends AbstractType
+class RecherchePersonneType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('personne', TextType::class, ['disabled'=>$options['personne_disabled']])
-            ->add('cadeau')
+            ->add('ville')
+            ->add('rue')
+            ->add('submit', SubmitType::class, array('label' => 'rechercher'));
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Liste::class,
-            'personne_disabled'=>false
+            'data_class' => Adresse::class,
         ]);
     }
 }

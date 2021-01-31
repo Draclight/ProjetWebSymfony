@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * @Route("/adresse")
@@ -19,20 +20,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class AdresseController extends AbstractController
 {
     /**
-     * @Route("/", name="adresse_index", methods={"GET"})
+     * @Route("/", name="adresse_index", methods={"GET", "POST"})
      */
     public function index(AdresseRepository $adresseRepository, Request $request): Response
     {
         $adresse = new Adresse();
-        $form = $this->createForm(RechercheAdresseType::class, $adresse);
+        $form = $this->createForm(RechercheAdresseType::class, $adresse); 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ville = $adresse->getville();
             $repo = $this->getDoctrine()->getManager()->getRepository(Adresse::class);
-            $adresses = $repo->findByVille($adresse->getVille());
-    
-            return $this->render('recherche_adresse/index.html.twig', [
+            $adresses = $repo->findByVille($ville);
+
+            return $this->render('adresse/index.html.twig', [
                 'adresses' => $adresses,
+                'form' => $form->createView(),
             ]);
         }
 
@@ -48,8 +51,7 @@ class AdresseController extends AbstractController
     public function new(Request $request): Response
     {
         $adresse = new Adresse();
-        $form = $this->createForm(RechercheAdresseType::class, $adresse);
-        $form->add('submit', SubmitType::class, array('label' => 'Ajouter'));
+        $form = $this->createForm(AdresseType::class, $adresse);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
