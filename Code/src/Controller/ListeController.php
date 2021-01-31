@@ -65,13 +65,20 @@ class ListeController extends AbstractController
      */
     public function edit(Request $request, Liste $liste): Response
     {
-        $form = $this->createForm(ListeType::class, $liste, array('personne_disabled'=>true));
+        $newListe = new Liste();
+        $form = $this->createForm(ListeType::class, $newListe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $liste->getCadeau()->add($newListe->getCadeau()[0]);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($liste);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('liste_index');
+            return $this->render('liste/edit.html.twig', [
+                'liste' => $liste,
+                'form' => $form->createView(),
+            ]);
         }
 
         return $this->render('liste/edit.html.twig', [
@@ -95,26 +102,17 @@ class ListeController extends AbstractController
     }
 
     /**
-     * @Route("/ajout/{id}", name="liste_edit", methods={"GET","POST"})
+     * @Route("/remove/{liste}/{cadeau}", name="remove_cadeau")
      */
-    public function addCadeau(Request $request, Liste $liste): Response
+    public function removeCadeau(Request $request, Liste $liste, Cadeau $cadeau) 
     {
-        $form = $this->createForm(ListeType::class, $liste, array('personne_disabled'=>true));
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-
-
-            return $this->render('liste/show.html.twig', [
-                'liste' => $liste,
-            ]);
-        }
-
-        return $this->render('liste/edit.html.twig', [
+        $liste->getCadeau()->removeElement($cadeau);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($liste);
+        $entityManager->flush();
+        
+        return $this->render('liste/show.html.twig', [
             'liste' => $liste,
-            'form' => $form->createView(),
         ]);
     }
 }

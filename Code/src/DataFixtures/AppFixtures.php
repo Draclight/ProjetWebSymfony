@@ -82,14 +82,14 @@ class AppFixtures extends Fixture
         
         $cadeau2 = new Cadeau();
         $cadeau2->setCategorie($categorie2);
-        $cadeau2->setDesignation('Monopoly');
+        $cadeau2->setDesignation('Echecs');
         $cadeau2->setAgeMinimum(6);
         $cadeau2->setPrix(20);
         $manager->persist($cadeau2);
 
         $cadeau3 = new Cadeau();
         $cadeau3->setCategorie($categorie3);
-        $cadeau3->setDesignation('Samsung S123');
+        $cadeau3->setDesignation('IPeach');
         $cadeau3->setAgeMinimum(10);
         $cadeau3->setPrix(1500);
         $manager->persist($cadeau3);

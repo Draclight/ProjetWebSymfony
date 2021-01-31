@@ -9,12 +9,16 @@
         <thead>
             <tr>
                 <th>Cadeau</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
         {% for cado in liste.cadeau %}
             <tr>
                 <td>{{ cado.designation }}</td>
+                <td>
+                    <a href="{{ path('remove_cadeau', {'liste': liste.id, 'cadeau': cado.id}) }}">supprimer</a>
+                </td>
             </tr>
         {% else %}
             <tr>

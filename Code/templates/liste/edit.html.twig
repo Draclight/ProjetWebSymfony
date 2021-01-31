@@ -3,9 +3,38 @@
 {% block title %}Edit Liste{% endblock %}
 
 {% block body %}
-    <h1>Edit Liste</h1>
+    <h1>Edit Liste - {{ liste.personne }}</h1>
 
-    {{ include('liste/_form.html.twig', {'button_label': 'Update'}) }}
+    <h2>Cadeaux</h1>
+    {{ include('liste/_form.html.twig') }}
+
+    <h2>Vos Cadeaux</h1>
+    <ul>
+    
+    </ul>
+
+<table class="table">
+        <thead>
+            <tr>
+                <th>Designation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cadeau in liste.cadeau %}
+            <tr>
+                <td>{{cadeau.designation}}</td>
+                <td>
+                    <a href="{{ path('remove_cadeau', {'liste': liste.id, 'cadeau': cadeau.id}) }}">supprimer</a>
+                </td>
+           </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
     <a href="{{ path('liste_index') }}">back to list</a>
 
